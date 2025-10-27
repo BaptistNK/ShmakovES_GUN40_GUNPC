@@ -2,52 +2,94 @@
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Enter first decimal number:");
-        if (!Int32.TryParse(Console.ReadLine(), out var a))        
+        Console.WriteLine("Task A");
+        Console.WriteLine("Task 1");
+        int[] fibonachi = new int[] { 0, 1 };
+        Array.Resize(ref fibonachi, 8);
+        for(int i =0; i< fibonachi.Length; i++)
         {
-            Console.WriteLine("Not a number!");
-            return;
-        }
-        Console.WriteLine("Enter second decimal number:");
-        if (!Int32.TryParse(Console.ReadLine(), out var b))        
-        {
-            Console.WriteLine("Not a number!");
-            return;
-        }
-        Console.WriteLine("Enter comand '&', '|' or '^':");
-
-        var s = Console.ReadLine();
-        if ((s == "&") || (s == "|")|| (s == "^"))
-        {
-            switch (s[0])
+            if (i >= 2)
             {
-            case '&':
-                Console.WriteLine("Result of logical multiplication:");
-                Console.WriteLine("Binare:  {0} & {1} = {2}", Convert.ToString(a,2), Convert.ToString(b, 2), Convert.ToString((a & b), 2));
-                Console.WriteLine("Decimal: {0} & {1} = {2}", a, b, a & b);
-                Console.WriteLine("Hex:     {0} & {1} = {2}", Convert.ToString(a, 16), Convert.ToString(b, 16), Convert.ToString((a & b), 16));
-                break;
-            case '|':
-                Console.WriteLine("Result of logical addition:");
-                Console.WriteLine("Binare:  {0} | {1} = {2}", Convert.ToString(a, 2), Convert.ToString(b, 2), Convert.ToString((a | b), 2));
-                Console.WriteLine("Decimal: {0} | {1} = {2}", a, b, a | b);
-                Console.WriteLine("Hex:     {0} | {1} = {2}", Convert.ToString(a, 16), Convert.ToString(b, 16), Convert.ToString((a | b), 16));
-                break;
-            case '^':
-                Console.WriteLine("Result of the operation of the exclusive OR:");
-                Console.WriteLine("Binare:  {0} ^ {1} = {2}", Convert.ToString(a, 2), Convert.ToString(b, 2), Convert.ToString((a ^ b), 2));
-                Console.WriteLine("Decimal: {0} ^ {1} = {2}", a, b, a ^ b);
-                Console.WriteLine("Hex:     {0} ^ {1} = {2}", Convert.ToString(a, 16), Convert.ToString(b, 16), Convert.ToString((a ^ b), 16));
-                break;
+                fibonachi[i] = fibonachi[i - 2] + fibonachi[i - 1];
             }
-           
+            Console.Write(fibonachi[i]+ " ");
         }
-        else
+        Console.WriteLine();
+        Console.WriteLine("==========");
+        Console.WriteLine("Task 2");
+        string[] months = new string[] { "January", "Feruary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        for (int i = 0; i < months.Length; i++)
         {
-            Console.WriteLine("Wrong sign");
-            return;
+            Console.WriteLine(months[i]);
         }
-        
+        Console.WriteLine("==========");
+        Console.WriteLine("Task 3");
 
+        int[,] matrix = new int[3,3];
+
+        for(int i=0; i<matrix.GetLength(0); i++)
+        {
+            
+            for (int j=0; j<matrix.GetLength(1);j++)
+            {
+                matrix[i, j] = (int)Math.Pow((j + 2), (i + 1));
+                Console.Write(matrix[i, j]+" ");
+            }
+            Console.WriteLine();
+        }       
+        Console.WriteLine("==========");
+        Console.WriteLine("Task 4");
+
+        
+        double[][] array = new double[3][];
+        array[0] = new double[5];
+        array[1] = new double[2];
+        array[2] = new double[4];
+
+        for(int i=0;i<4;i++)
+        {
+            array[0][i] = i+1;
+        }
+       
+
+        array[1][0] = Math.Exp(1);
+        array[1][1] =  Math.PI;
+
+
+        array[2][0] = Math.Log10(1);
+        array[2][1] = Math.Log10(10);
+        array[2][2] = Math.Log10(100);
+        array[2][3] = Math.Log10(1000);
+        
+        for(int i=0; i < array.Length; i++)
+        {
+            for(int j=0; j < array[i].Length; j++)
+            {
+                Console.Write(array[i][j] + " ");
+            }
+            Console.WriteLine();
+        }
+        Console.WriteLine();
+        Console.WriteLine("Task B");
+        int[] array1 = { 1, 2, 3, 4, 5 };
+        int[] array2 = { 7, 8, 9, 10, 11, 12, 13 };
+
+        Console.WriteLine("Task 5");
+
+        Array.Copy(array1, array2, 3);
+
+        for (int i = 0; i < array2.Length; i++)
+        {
+            Console.Write(array2[i]+" ");
+        }
+        Console.WriteLine();
+        Console.WriteLine("==========");
+        Console.WriteLine("Task 6");
+        Array.Resize(ref array1, array1.Length * 2);
+
+        for(int i =0; i< array1.Length; i++)
+        {
+            Console.Write(array1[i]+" ");
+        }
     }
 }
