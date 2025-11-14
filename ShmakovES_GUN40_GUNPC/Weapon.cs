@@ -11,15 +11,15 @@ namespace ShmakovES_GUN40_GUNPC
         public string Name { get;  }
         public int MinDamage { get; private set; }
         public int MaxDamage { get; private set; }
-        public float Durability {  get { return 1; } }
+        public float Durability {  get;  }
 
         public Weapon(string name)
         {
             Name = name;
+            Durability = 1f;
         }
         public Weapon(string name, int minDamage, int maxDamage):this(name)
         {
-            name=this.Name;
             SetDamageParams(minDamage, maxDamage);
         }
 

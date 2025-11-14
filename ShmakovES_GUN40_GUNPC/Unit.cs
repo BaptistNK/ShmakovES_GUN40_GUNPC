@@ -19,12 +19,14 @@ namespace ShmakovES_GUN40_GUNPC
               
         public Unit():this(name: "Unknown Unit")
         {
-            Damage = 5;
+
         }
         
         public Unit(string name)
         {
             Name = name;
+            Damage = 5;
+            Armor = 0.6f;
         }
 
         public float GetRealHealth()
@@ -46,13 +48,10 @@ namespace ShmakovES_GUN40_GUNPC
             }
         }
 
-        public bool SetDamage(float value)
+        public bool SetDamage(float damage)
         {
-            if ((Health-value * Armor) <= 0f)
-            {
-                return true;
-            }            
-            return false;
+            _health -= damage * Armor;
+            return _health <= 0f;
         }
 
     }
