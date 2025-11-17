@@ -8,7 +8,6 @@ namespace ShmakovES_GUN40_GUNPC
 {
     public class Quest
     {
-        private bool _isCompleted = false;
         public string Title { get; }
         public string Description { get; }
         public int Reward {  get; }
@@ -38,7 +37,7 @@ namespace ShmakovES_GUN40_GUNPC
         }
         public bool IsEligible(int playerLevel)
         {
-                return playerLevel >= Reward / 10; 
+            return playerLevel >= Reward / 10; 
         }
     }
 }
