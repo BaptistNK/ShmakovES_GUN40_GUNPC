@@ -10,7 +10,7 @@ namespace ShmakovES_GUN40_GUNPC
     {
         private float _health;
         private float _armor;
-
+        public Interval Interval { get; }
         public string Name { get; }
 
         private float Health =>_health;
@@ -52,6 +52,13 @@ namespace ShmakovES_GUN40_GUNPC
         {
             _health -= damage * Armor;
             return _health <= 0f;
+        }
+        public Unit(int min, int max)
+        {
+            if ((min >= 0) || (max >= 0))
+            {
+                Damage = Interval.Get(min, max);
+            }
         }
 
     }

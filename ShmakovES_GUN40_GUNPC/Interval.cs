@@ -51,13 +51,10 @@ namespace ShmakovES_GUN40_GUNPC
                 return max;
             }
         }
-        public int Get
+        public int Get(int Min, int Max)
         {
-            get
-            {
-                var rnd = new Random();
-                return rnd.Next(Min,Max);
-            }
+            var rnd = new Random();
+            return rnd.Next(Min,Max);            
         }
     }
 }

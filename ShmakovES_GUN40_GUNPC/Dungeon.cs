@@ -18,8 +18,8 @@ namespace ShmakovES_GUN40_GUNPC
             for (int i = 0; i < rooms.Length; i++)
             {
                 var room = rooms[i];
-                Console.WriteLine("Unit of room " + room.Unit);
-                Console.WriteLine("Weapon of room " + room.Weapon);
+                Console.WriteLine("Unit of room " + room.Unit.Name);
+                Console.WriteLine("Weapon of room " + room.Weapon.Name);
                 Console.WriteLine("—");
             }
         }
