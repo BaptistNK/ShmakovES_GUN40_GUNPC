@@ -8,8 +8,8 @@ namespace ShmakovES_GUN40_GUNPC
 {
     public struct Interval
     {
-        public int min;
-        public int max;
+        public int Min {get;}
+        public int Max { get; }
         public Interval(int minValue, int maxValue)
         {
             if(minValue > maxValue)
@@ -37,20 +37,7 @@ namespace ShmakovES_GUN40_GUNPC
             }
 
         }
-        public int Min 
-        {
-        get
-            {
-                return min;
-            }
-        }
-        public int Max
-        {
-            get
-            {
-                return max;
-            }
-        }
+        
         public int Get(int Min, int Max)
         {
             var rnd = new Random();

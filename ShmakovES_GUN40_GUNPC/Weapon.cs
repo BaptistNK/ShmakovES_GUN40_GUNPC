@@ -12,7 +12,6 @@ namespace ShmakovES_GUN40_GUNPC
         public int MinDamage { get; private set; }
         public int MaxDamage { get; private set; }
         public float Durability {  get;  }
-        public Interval Interval { get; }
         public Weapon(string name)
         {
             Name = name;
@@ -20,13 +19,12 @@ namespace ShmakovES_GUN40_GUNPC
         }        
         public Weapon(string name, int minDamage, int maxDamage):this(name)
         {
-            minDamage = Interval.Min;
-            maxDamage = Interval.Max;
             SetDamageParams(minDamage, maxDamage);
         }
 
         public void SetDamageParams(int minDamage, int maxDamage)
         {
+            Interval interval = new Interval(minDamage, maxDamage);
             if(minDamage > maxDamage)
             {
                 (minDamage,maxDamage)=(maxDamage,minDamage);
@@ -43,7 +41,8 @@ namespace ShmakovES_GUN40_GUNPC
         }
         public float GetDamage()
         {
-            return (MinDamage+MaxDamage)/2;
+            Interval interval= new Interval(MinDamage, MaxDamage);
+            return interval.Get(MinDamage,MaxDamage);
         }
     }
 }

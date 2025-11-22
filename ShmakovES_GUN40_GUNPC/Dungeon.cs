@@ -8,7 +8,7 @@ namespace ShmakovES_GUN40_GUNPC
 {
     public class Dungeon
     {
-        Room[] rooms;
+        public Room[] rooms;
         public Dungeon()
         { 
         rooms =  new Room[] { new Room(new Unit("Unit1"), new Weapon("Weapon1")), new Room(new Unit("Unit2"), new Weapon("Weapon2")), new Room(new Unit("Unit3"), new Weapon("Weapon3"))};
