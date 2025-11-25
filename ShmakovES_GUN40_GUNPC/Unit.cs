@@ -12,7 +12,6 @@ namespace ShmakovES_GUN40_GUNPC
         public string Name { get; }
         Interval Interval { get; }
         private float Health =>_health;
-        public int Damage { get ; } 
               
         public Unit():this(name: "Unknown Unit")
         {
@@ -22,7 +21,6 @@ namespace ShmakovES_GUN40_GUNPC
         public Unit(string name)
         {
             Name = name;
-            Damage = 5;
             Armor = 0.6f;
         }
 
@@ -40,9 +38,10 @@ namespace ShmakovES_GUN40_GUNPC
         }
         public Unit(string name, int min, int max)
         {
+            min = 0;
             Interval interval = new Interval(min, max);
             Name = name;            
-            Damage = interval.Get(min, max);
+            interval.Get(min, max);
         }
 
     }
