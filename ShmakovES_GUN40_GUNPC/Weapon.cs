@@ -9,8 +9,7 @@ namespace ShmakovES_GUN40_GUNPC
     public class Weapon
     {
         public string Name { get;  }
-        public int MinDamage { get; private set; }
-        public int MaxDamage { get; private set; }
+        Interval Interval { get; }
         public float Durability {  get;  }
         public Weapon(string name)
         {
@@ -19,30 +18,16 @@ namespace ShmakovES_GUN40_GUNPC
         }        
         public Weapon(string name, int minDamage, int maxDamage):this(name)
         {
-            SetDamageParams(minDamage, maxDamage);
+            SetDamageParams(Interval.Min,Interval.Max);
         }
 
         public void SetDamageParams(int minDamage, int maxDamage)
         {
-            Interval interval = new Interval(minDamage, maxDamage);
-            if(minDamage > maxDamage)
-            {
-                (minDamage,maxDamage)=(maxDamage,minDamage);
-                Console.WriteLine("Введены некорректные данные у оружия {Name}");
-            }
-            if(minDamage<1)
-            {
-                Console.WriteLine("Форсированная уставка минимального значения");
-            }
-            if (maxDamage<=1)
-            {
-                maxDamage = 10;
-            }
+            Interval Interval = new Interval(minDamage, maxDamage);            
         }
         public float GetDamage()
         {
-            Interval interval= new Interval(MinDamage, MaxDamage);
-            return interval.Get(MinDamage,MaxDamage);
+            return (Interval.Min+Interval.Max)/2 ;
         }
     }
 }

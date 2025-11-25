@@ -8,6 +8,7 @@ namespace ShmakovES_GUN40_GUNPC
 {
     public struct Interval
     {
+        Random rnd = new Random();
         public int Min {get;}
         public int Max { get; }
         public Interval(int minValue, int maxValue)
@@ -40,7 +41,6 @@ namespace ShmakovES_GUN40_GUNPC
         
         public int Get(int Min, int Max)
         {
-            var rnd = new Random();
             return rnd.Next(Min,Max);            
         }
     }

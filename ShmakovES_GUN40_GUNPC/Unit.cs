@@ -9,13 +9,10 @@ namespace ShmakovES_GUN40_GUNPC
     public class Unit
     {
         private float _health;
-        private float _armor;
-        //public Interval Interval { get; }
         public string Name { get; }
-
+        Interval Interval { get; }
         private float Health =>_health;
-
-        public int Damage { get; }
+        public int Damage { get ; } 
               
         public Unit():this(name: "Unknown Unit")
         {
@@ -34,19 +31,7 @@ namespace ShmakovES_GUN40_GUNPC
             return Health * (1 + Armor);
         }
 
-       
-        public float Armor
-        {
-            get 
-            { 
-                return _armor; 
-            }
-            set
-            {
-                    _armor = 0.6f;
-
-            }
-        }
+        public float Armor { get; } = 0.6f;
 
         public bool SetDamage(float damage)
         {
