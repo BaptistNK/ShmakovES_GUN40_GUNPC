@@ -1,38 +1,55 @@
 ﻿class Program
 {
+    
     static void Main(string[] args)
     {
-        Task1 task1 = new Task1();
-        Task2 task2 = new Task2();
-        Task3 task3 = new Task3();
+        bool exitProgram = false;
 
-        Console.WriteLine("Выберите задание: 1, 2 или 3");
-        string task = Console.ReadLine();
-        if (int.TryParse(task, out int number))
+        while (!exitProgram)
         {
-            if (number >= 1 && number <= 3)
+            Console.Clear();
+            Console.WriteLine("Выберите задание: 1, 2 или 3");
+            string task = Console.ReadLine();
+
+            if (task == "-exit")
+            {
+                exitProgram = true;
+                continue;
+            }
+
+            if (int.TryParse(task, out int number))
             {
                 switch (number)
                 {
                     case 1:
+                        Task1 task1 = new Task1();
                         task1.TaskLoop();
                         break;
                     case 2:
+                        Task2 task2 = new Task2();
                         task2.TaskLoop();
                         break;
                     case 3:
+                        Task3 task3 = new Task3();
                         task3.TaskLoop();
+                        break;
+                    default:
+                        Console.WriteLine("Некорректный ввод! Нажмите любую клавишу...");
+                        Console.ReadKey();
                         break;
                 }
             }
             else
             {
-                Console.WriteLine("Некорректный ввод");
-                return;
+                Console.WriteLine("Некорректный ввод! Нажмите любую клавишу...");
+                Console.ReadKey();
             }
         }
+
+        
     }
 }
+
 public class Task1
 {
 public void TaskLoop()
@@ -95,7 +112,7 @@ public class Task2
         name = Console.ReadLine();
         if(students.ContainsKey(name))
         {
-             score = students[name];
+            //score = students[name];
             Console.WriteLine(name+ " с оценкой "+ score);
         }
         else
@@ -114,15 +131,10 @@ public class Task3
     }
     public void TaskLoop()
     {
-        var node1 = new Node() { value = 1};
-        
-        var node2 = new Node() { value = 2 };
-        
-        var node3 = new Node() { value = 3 }; 
-        
+        var node1 = new Node() { value = 1};        
+        var node2 = new Node() { value = 2 };        
+        var node3 = new Node() { value = 3 };         
         var node4 = new Node() { value = 4 };
-        
-
         node1.Preview = null;
         node1.Next = node2;
         node2.Preview = node1;
@@ -137,8 +149,6 @@ public class Task3
             Console.WriteLine(next.value);
             next = next.Next;
         }
-
-
-
+        
     }
 }
