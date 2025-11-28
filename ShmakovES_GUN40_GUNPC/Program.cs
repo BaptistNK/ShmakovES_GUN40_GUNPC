@@ -1,154 +1,67 @@
-﻿class Program
+﻿using System.Text;
+
+class Program
 {
-    
+
     static void Main(string[] args)
     {
-        bool exitProgram = false;
-
-        while (!exitProgram)
-        {
-            Console.Clear();
-            Console.WriteLine("Выберите задание: 1, 2 или 3");
-            string task = Console.ReadLine();
-
-            if (task == "-exit")
-            {
-                exitProgram = true;
-                continue;
-            }
-
-            if (int.TryParse(task, out int number))
-            {
-                switch (number)
-                {
-                    case 1:
-                        Task1 task1 = new Task1();
-                        task1.TaskLoop();
-                        break;
-                    case 2:
-                        Task2 task2 = new Task2();
-                        task2.TaskLoop();
-                        break;
-                    case 3:
-                        Task3 task3 = new Task3();
-                        task3.TaskLoop();
-                        break;
-                    default:
-                        Console.WriteLine("Некорректный ввод! Нажмите любую клавишу...");
-                        Console.ReadKey();
-                        break;
-                }
-            }
-            else
-            {
-                Console.WriteLine("Некорректный ввод! Нажмите любую клавишу...");
-                Console.ReadKey();
-            }
-        }
-
+        string name = "Ivan";
+        int age = 25;
+        string[] words = { "words1", "words2", "words3", "words4", "words5", "words6" };
+        string word1 = "world";
+        string word2 = "internet";
+        string inputString = "Hello world";
+        string string1 = "afA  sad fHGJ  IYVG KJIYKafdad";
+        string string2 = " SDEfvghsjkvbkbsujf szk u";
+        ConcatenateString( string1, string2 );  //1
+        GreetUser(name, age);                   //2
+        SortingSimbol(string1);                 //3
+        ReturnFive(string1);                    //4
+        StringAdd(words);                       //5
+        ReplaceWords(inputString, word1, word2);//6
+    }
+    static void  ConcatenateString(string str1, string str2)
+    {
         
+        str1 = str1.Insert(str1.Length, str2);
+        Console.WriteLine(str1);
     }
-}
 
-public class Task1
-{
-public void TaskLoop()
+    static void GreetUser(string name, int age)
     {
-        var list = new List<string>() { "afda", "asefase", "seafeasf"};
-        Console.WriteLine("Введите строку");
-        list.Add(Console.ReadLine());
-        for (int i = 0; i < list.Count; i++)
-        {
-            Console.WriteLine(list[i]);
-        }
-        Console.WriteLine("Введите еще одну строку");
-        int sum = Convert.ToInt32(Math.Round(Convert.ToDecimal(list.Count / 2)));
-        string str = Console.ReadLine();
-        list.Insert(sum, str);
-        for (int i = 0; i < list.Count; i++)
-        {
-            Console.WriteLine(list[i]);
-        }
-        Console.WriteLine("для выбора задачи введите '-exit'");
-        str = Console.ReadLine();
-        if(str =="-exit")
-        {
-            return;
-        }
+        string textString = $"Hello, {name}! \nYou are {age} years old.";
+        Console.WriteLine(textString);
     }
-}
-public class Task2
-{
-    
-    
-    public void TaskLoop()
-    {
-        Dictionary<string, int> students = new Dictionary<string, int>();
-        students.Add("Иван", 3);
-        students.Add("Олег", 5);
-        students.Add("Стас", 4);
-        Console.WriteLine("Введите имя студента:");
-        string name = Console.ReadLine();
-        Console.WriteLine("Введите среднюю оценку от 2 до 5:");        
-        string input = Console.ReadLine();
-        if(int.TryParse(input, out int score))
-        {
-            if (score >= 2 && score <= 5) 
-            { 
-                students.Add(name, score);
-            }
-            else
-            {
-                Console.WriteLine("Введена некорректная оценка!");
-                return;
-            }
-        }
 
-        foreach (KeyValuePair<string, int> pair in students)
-        {
-            Console.WriteLine("{0} - {1}", pair.Key, pair.Value);
-        }
-        Console.WriteLine("Введите имя студента");
-        name = Console.ReadLine();
-        if(students.ContainsKey(name))
-        {
-            //score = students[name];
-            Console.WriteLine(name+ " с оценкой "+ score);
-        }
-        else
-        {
-            Console.WriteLine("Имя не найдено");
-        }
-    }
-}
-public class Task3
-{
-    private class Node
+    static void SortingSimbol(string str)
     {
-        public int value;
-        public Node Preview;
-        public Node Next;        
+        Console.WriteLine("Количество символов в строке: ",str.Length);
+        var up = str.Where(char.IsUpper);
+            Console.WriteLine($"Символы верхнего регистра: {string.Join(" ", up)}");
+        var down = str.Where(char.IsLower);
+        Console.WriteLine($"Символы нижнего регистра: {string.Join(" ", down)}");
     }
-    public void TaskLoop()
+
+    static void ReturnFive(string text)
     {
-        var node1 = new Node() { value = 1};        
-        var node2 = new Node() { value = 2 };        
-        var node3 = new Node() { value = 3 };         
-        var node4 = new Node() { value = 4 };
-        node1.Preview = null;
-        node1.Next = node2;
-        node2.Preview = node1;
-        node2.Next = node3;
-        node3.Preview = node2;
-        node3.Next = node4;
-        node4.Preview = node3;
-        node4.Next = null;
-        var next = node1;
-        while (next != null)
+        string result = text.Substring(0, 5);
+        Console.WriteLine("Первые 5 символов строки: "+result);
+    }
+
+    static void StringAdd(string[] words)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        foreach (string word in words)
         {
-            Console.WriteLine(next.value);
-            next = next.Next;
+            stringBuilder.Append(word+" ");
         }
-        
+        string result = stringBuilder.ToString();
+        Console.WriteLine(result);
+    }
+
+    static void ReplaceWords(string inputString, string wordToReplace, string replacementWord)
+    {
+        string result = inputString.Replace(wordToReplace, replacementWord);
+        Console.WriteLine(result);
     }
 }
