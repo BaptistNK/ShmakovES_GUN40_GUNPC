@@ -1,4 +1,7 @@
-﻿class Program
+﻿using ShmakovES_GUN40_GUNPC;
+using System;
+
+class Program
 {
     
     static void Main(string[] args)
@@ -10,7 +13,6 @@
             Console.Clear();
             Console.WriteLine("Выберите задание: 1, 2 или 3");
             string task = Console.ReadLine();
-
             if (task == "-exit")
             {
                 exitProgram = true;
@@ -34,15 +36,14 @@
                         task3.TaskLoop();
                         break;
                     default:
-                        Console.WriteLine("Некорректный ввод! Нажмите любую клавишу...");
-                        Console.ReadKey();
+                        Console.WriteLine("Некорректный ввод! ");
                         break;
                 }
             }
             else
             {
-                Console.WriteLine("Некорректный ввод! Нажмите любую клавишу...");
-                Console.ReadKey();
+                Console.WriteLine("Некорректный ввод!");
+                
             }
         }
 
@@ -69,12 +70,8 @@ public void TaskLoop()
         {
             Console.WriteLine(list[i]);
         }
-        Console.WriteLine("для выбора задачи введите '-exit'");
-        str = Console.ReadLine();
-        if(str =="-exit")
-        {
-            return;
-        }
+        Console.WriteLine("Программа выполена. Нажмите на любую кнопку.");
+        string input = Console.ReadLine();
     }
 }
 public class Task2
@@ -100,6 +97,7 @@ public class Task2
             else
             {
                 Console.WriteLine("Введена некорректная оценка!");
+                Console.ReadKey();
                 return;
             }
         }
@@ -119,6 +117,8 @@ public class Task2
         {
             Console.WriteLine("Имя не найдено");
         }
+        Console.WriteLine("Программа выполнена. Нажмите любую кнопку.");
+        Console.ReadKey();
     }
 }
 public class Task3
@@ -131,24 +131,43 @@ public class Task3
     }
     public void TaskLoop()
     {
-        var node1 = new Node() { value = 1};        
-        var node2 = new Node() { value = 2 };        
-        var node3 = new Node() { value = 3 };         
-        var node4 = new Node() { value = 4 };
-        node1.Preview = null;
-        node1.Next = node2;
-        node2.Preview = node1;
-        node2.Next = node3;
-        node3.Preview = node2;
-        node3.Next = node4;
-        node4.Preview = node3;
-        node4.Next = null;
-        var next = node1;
-        while (next != null)
+        var duplexList = new DuplexLinkedList<string>();
+        Console.WriteLine("Введите от 3 до 6 элементов: ");
+        string input;
+        while (true)
         {
-            Console.WriteLine(next.value);
-            next = next.Next;
+            input = Console.ReadLine();
+            if (string.IsNullOrEmpty(input))
+                break;
+            duplexList.Add(input);
         }
-        
+        Console.WriteLine("<====Result===>");
+        foreach (var item in duplexList)
+        {
+            Console.WriteLine(item);
+        }
+        Console.WriteLine("====Reverse===");
+        var reverse = duplexList.Reverse();
+        foreach(var item in reverse)
+        {
+            Console.WriteLine(item);
+        }
+        Console.WriteLine("Программа выполнена. Нажмите любую кнопку.");
+        Console.ReadKey();
+    }
+}
+public class DuplexItem<T>
+{
+    public T Data {  get; set; }
+    public DuplexItem<T> Previous { get; set; }
+    public DuplexItem<T> Next { get; set; }
+
+    public DuplexItem(T data)
+    {
+        Data = data;
+    }
+    public override string ToString()
+    {
+        return Data.ToString();
     }
 }
