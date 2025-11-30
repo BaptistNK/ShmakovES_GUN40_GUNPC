@@ -13,55 +13,48 @@ class Program
         string inputString = "Hello world";
         string string1 = "afA  sad fHGJ  IYVG KJIYKafdad";
         string string2 = " SDEfvghsjkvbkbsujf szk u";
-        ConcatenateString( string1, string2 );  //1
-        GreetUser(name, age);                   //2
-        SortingSimbol(string1);                 //3
-        ReturnFive(string1);                    //4
-        StringAdd(words);                       //5
-        ReplaceWords(inputString, word1, word2);//6
-    }
-    static void  ConcatenateString(string str1, string str2)
-    {
         
-        str1 = str1.Insert(str1.Length, str2);
-        Console.WriteLine(str1);
+        Console.WriteLine(ConcatenateString(string1, string2));     //1        
+        Console.WriteLine(GreetUser(name, age));                    //2                      
+        Console.WriteLine(SortingSimbol(string2));                  //3
+        Console.WriteLine(ReturnFive(string1));                     //4
+        Console.WriteLine(StringAdd(words));                        //5
+        Console.WriteLine(ReplaceWords(inputString, word1, word2)); //6
+    }
+    static string  ConcatenateString(string str1, string str2)
+    {
+        return str1+str2;
     }
 
-    static void GreetUser(string name, int age)
+    static string GreetUser(string name, int age)
     {
-        string textString = $"Hello, {name}! \nYou are {age} years old.";
-        Console.WriteLine(textString);
+        return $"Hello, {name}! \nYou are {age} years old.";
     }
 
-    static void SortingSimbol(string str)
+    static string SortingSimbol(string str)
     {
-        Console.WriteLine("Количество символов в строке: ",str.Length);
         var up = str.Where(char.IsUpper);
-            Console.WriteLine($"Символы верхнего регистра: {string.Join(" ", up)}");
         var down = str.Where(char.IsLower);
-        Console.WriteLine($"Символы нижнего регистра: {string.Join(" ", down)}");
+        return $"Количество символов в строке: { str.Length} \nСимволы верхнего регистра: {string.Join(" ", up)} \nСимволы нижнего регистра: {string.Join(" ", down)}";        
     }
 
-    static void ReturnFive(string text)
+    static string ReturnFive(string text)
     {
-        string result = text.Substring(0, 5);
-        Console.WriteLine("Первые 5 символов строки: "+result);
+        return text.Substring(0, 5);
     }
 
-    static void StringAdd(string[] words)
+    static string StringAdd(string[] words)
     {
         StringBuilder stringBuilder = new StringBuilder();
         foreach (string word in words)
         {
             stringBuilder.Append(word+" ");
         }
-        string result = stringBuilder.ToString();
-        Console.WriteLine(result);
+        return stringBuilder.ToString();        
     }
 
-    static void ReplaceWords(string inputString, string wordToReplace, string replacementWord)
+    static string ReplaceWords(string inputString, string wordToReplace, string replacementWord)
     {
-        string result = inputString.Replace(wordToReplace, replacementWord);
-        Console.WriteLine(result);
+        return inputString.Replace(wordToReplace, replacementWord);
     }
 }
