@@ -9,7 +9,6 @@ namespace GamePrototype.Units
         private uint _maxHealth;
         protected uint BaseDamage;
         protected Inventory Inventory;
-        
         public string Name { get; private set; }
         public uint Health
         {

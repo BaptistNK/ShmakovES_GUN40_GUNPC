@@ -18,10 +18,11 @@ namespace GamePrototype.Units
             if (_equipment.TryGetValue(EquipSlot.Weapon, out var item) && item is Weapon weapon) 
             {
                 return BaseDamage + weapon.Damage;
+                weapon.ReduceDurability(1);
             }
             return BaseDamage;
         }
-
+      
         public override void HandleCombatComplete()
         {
             var items = Inventory.Items;
@@ -39,7 +40,7 @@ namespace GamePrototype.Units
         {
             if (item is EquipItem equipItem && _equipment.TryAdd(equipItem.Slot, equipItem)) 
             {
-                // Item was equipped
+                
                 return;
             }
             base.AddItemToInventory(item);
@@ -49,7 +50,17 @@ namespace GamePrototype.Units
         {
             if (economicItem is HealthPotion healthPotion) 
             {
-                Health += healthPotion.HealthRestore;
+                if((Health += healthPotion.HealthRestore)>MaxHealth)
+                {
+                    Health=MaxHealth;
+                }                
+            }
+            if (economicItem is Grindstone grindstone)
+            {
+                if (_equipment.TryGetValue(EquipSlot.Weapon, out var item) && item is Weapon weapon)
+                {
+                    weapon.Repair(grindstone.DurabilityRestore);
+                }
             }
         }
 
