@@ -17,8 +17,9 @@ namespace GamePrototype.Units
         {
             if (_equipment.TryGetValue(EquipSlot.Weapon, out var item) && item is Weapon weapon) 
             {
-                return BaseDamage + weapon.Damage;
                 weapon.ReduceDurability(1);
+                return BaseDamage + weapon.Damage;
+                
             }
             return BaseDamage;
         }
