@@ -39,12 +39,38 @@ namespace GamePrototype.Units
 
         public override void AddItemToInventory(Item item)
         {
-            if (item is EquipItem equipItem && _equipment.TryAdd(equipItem.Slot, equipItem)) 
+            if (item is EquipItem newEquipItem)
             {
-                
+                if (_equipment.TryGetValue(newEquipItem.Slot, out EquipItem currentEquipItem))
+                {
+                    if (AskPlayerToReplaceEquipment(newEquipItem))
+                    {
+                        base.AddItemToInventory(currentEquipItem);
+                        _equipment[newEquipItem.Slot] = newEquipItem;
+                        Console.WriteLine($"Вы экипировали {currentEquipItem.Name}");
+                    }
+                    else
+                    {
+                        base.AddItemToInventory(newEquipItem);
+                    }
+                }
+                else
+                {
+                    _equipment.TryAdd(newEquipItem.Slot, newEquipItem);
+                }
                 return;
             }
             base.AddItemToInventory(item);
+        }
+        private bool AskPlayerToReplaceEquipment(EquipItem newItem)
+        {
+            Console.WriteLine($"Вы взяли {newItem.Name}, экипируем? Yes..");
+            if (Console.ReadLine() == "Yes")
+            {
+                return true;
+            }
+           return false;
+
         }
 
         private void UseEconomicItem(EconomicItem economicItem)
