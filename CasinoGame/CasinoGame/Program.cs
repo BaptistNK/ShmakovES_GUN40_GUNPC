@@ -1,12 +1,10 @@
-﻿using GamePrototype.Game;
-
-namespace GamePrototype
+﻿namespace CasinoGame
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            new GameLoop().StartGame();
+            Console.WriteLine("Hello, World!");
         }
     }
 }
