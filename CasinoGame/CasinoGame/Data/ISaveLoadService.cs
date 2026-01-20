@@ -8,21 +8,7 @@ namespace CasinoGame.Data
 {
     public interface ISaveLoadService<T>
     {
-        void SaveData<T>(T data, string identifier)
-        {
-
-        }
-
-        T LoadData(string identifier)
-        {
-            if (string.IsNullOrWhiteSpace(identifier))
-            {
-                throw new ArgumentException(
-                    "Идентификатор не может быть пустой строкой",
-                    nameof(identifier));
-            }
-            lock
-            return data;
-        }
+        void SaveData(T data, string ID);
+        void LoadData<T>(string ID);
     }
 }
