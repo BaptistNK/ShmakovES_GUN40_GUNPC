@@ -1,13 +1,13 @@
 ﻿namespace CasinoGame.Games.Dice
 {
-    class Dice
+    public class Dice
     {
-        private readonly Random _random;
-        private readonly int Min;
-        private readonly int Max;
-        public int Number =>_random.Next(Min, Max);
+        private readonly Random _random = new Random();
+        private readonly int min;
+        private readonly int max;
+        public int Number => _random.Next(min, max + 1);
 
-        Dice(int min, int max)
+        public Dice(int min, int max)
         {
             if(min < 1 || min > int.MaxValue)
             {

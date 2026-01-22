@@ -1,22 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace CasinoGame.Games
 {
     public abstract class CasinoGameBase
     {
-        public Action OnWin;
-        public Action OnLoose;
-        public Action OnDraw;
+        public event Action? OnWin;
+        public event Action? OnLoose;
+        public event Action? OnDraw;
         public abstract void PlayGame();
 
         public CasinoGameBase()
         {
             FactoryMethod();
         }
+
         protected void OnWinInvoke()
         {
             OnWin?.Invoke();
@@ -33,5 +29,7 @@ namespace CasinoGame.Games
         }
 
         protected abstract void FactoryMethod();
+
+
     }
 }
