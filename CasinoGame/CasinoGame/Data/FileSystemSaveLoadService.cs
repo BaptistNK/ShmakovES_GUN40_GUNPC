@@ -2,76 +2,40 @@
 {
     public class FileSystemSaveLoadService : ISaveLoadService<string>
     {
-        private readonly string _path;
-        public FileSystemSaveLoadService(string path) 
+        private readonly string _saveDirectory;
+
+        public FileSystemSaveLoadService(string saveDirectory)
         {
-            if(string.IsNullOrWhiteSpace(path))
-            {
-                throw new ArgumentException("Directory path cannot be empty.", nameof(path));
-            }
-            _path = path;
-            if((!Directory.Exists(path)))
-            {
-                Directory.CreateDirectory(path);
-            }
+            if (string.IsNullOrWhiteSpace(saveDirectory))
+                throw new ArgumentException("Save directory cannot be null or empty", nameof(saveDirectory));
+
+            _saveDirectory = saveDirectory;
         }
 
-        private string GetFilePath(string ID)
+        public void SaveData(string data, string identifier)
         {
-            string sanitizeIdentifier = ID.Replace("/","_")
-                                                      .Replace("\\", "_")
-                                                      .Replace(":", "_")
-                                                      .Replace("*", "_")
-                                                      .Replace("?", "_")
-                                                      .Replace("\"", "_")
-                                                      .Replace("<", "_")
-                                                      .Replace(">", "_")
-                                                      .Replace("|", "_");
-            return Path.Combine(_path, sanitizeIdentifier + ".txt");
+            EnsureDirectoryExists();
+            string filePath = Path.Combine(_saveDirectory, $"{identifier}.txt");
+            File.WriteAllText(filePath, data);
         }
 
-        public string LoadData<T>(string ID)
+        public string LoadData(string identifier)
         {
-            if ((string.IsNullOrWhiteSpace(ID)))
-            {
-                throw new ArgumentException("The ID cannot be empty.", nameof(ID));
-            }
-            string filePath = GetFilePath(ID);
+            EnsureDirectoryExists();
+            string filePath = Path.Combine(_saveDirectory, $"{identifier}.txt");
 
             if (!File.Exists(filePath))
-            {
-                throw new FileNotFoundException($"File not found: {filePath}");
-            }
-            try
-            {
-                return File.ReadAllText(filePath);
-            }
-            catch (Exception ex)
-            {
-                throw new IOException($"Couldn't download data from the file {filePath}. Error: {ex.Message}");
-            }
+                return null;
+
+            return File.ReadAllText(filePath);
         }
 
-        public void SaveData(string data, string ID)
+        private void EnsureDirectoryExists()
         {
-            if (string.IsNullOrWhiteSpace(ID))
+            if (!Directory.Exists(_saveDirectory))
             {
-                throw new ArgumentException("The ID cannot be empty.", nameof(ID));
+                Directory.CreateDirectory(_saveDirectory);
             }
-            string filePath = GetFilePath(ID);
-            try
-            {
-                File.WriteAllText(filePath, data);
-            }
-            catch (Exception ex) 
-            {
-                throw new IOException($"Couldn't save data to file {filePath}. Error: {ex.Message}");
-            }
-        }
-
-        void ISaveLoadService<string>.LoadData<T>(string ID)
-        {
-            throw new NotImplementedException();
         }
     }
 }

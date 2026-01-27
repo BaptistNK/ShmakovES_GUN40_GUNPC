@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace CasinoGame.Games.BlackJack
 {
-    public enum Suits
+    public enum CardSuit
     {
-        Diamonds = 1,
-        Hearts = 2,
-        Clubs = 3,
-        Spades = 4
+        Diamonds,
+        Hearts,
+        Clubs,
+        Spades
     }
 
-    public enum Ranks
+    public enum CardRank
     {
-        Six,
+        Six = 6,
         Seven,
         Eight,
         Nine,
@@ -28,14 +28,20 @@ namespace CasinoGame.Games.BlackJack
     }
 
     public struct Card
-    {
-        readonly Suits Suit;
-        readonly Ranks Rank;
-
-        public Card(Suits suit, Ranks rank)
         {
-            Suit = suit;
-            Rank = rank;
+            public CardSuit Suit { get; }
+            public CardRank Rank { get; }
+
+            public Card(CardSuit suit, CardRank rank)
+            {
+                Suit = suit;
+                Rank = rank;
+            }
+
+            public override string ToString()
+            {
+                return $"{Rank} of {Suit}";
+            }
         }
-    }
+    
 }

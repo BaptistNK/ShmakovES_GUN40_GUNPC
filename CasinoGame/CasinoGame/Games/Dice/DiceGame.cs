@@ -2,50 +2,85 @@
 {
     public class DiceGame : CasinoGameBase
     {
-        private readonly List<Dice> _diceCollection = new List<Dice>();
-        private readonly DiceFactory _factory;
-        public int Sum => _diceCollection.Sum(d => d.Number);
+        private readonly int _numberOfDice;
+        private readonly int _minValue;
+        private readonly int _maxValue;
+        private List<Dice> _diceCollection;
 
-        public DiceGame(int sum, int min, int max)
+        public DiceGame(int numberOfDice, int minValue, int maxValue)
         {
-            if (sum <= 0)
-            {
-                 throw new ArgumentOutOfRangeException(nameof(sum), "sum < 0!");
-            }
-            if (min >= max)
-            { 
-                throw new ArgumentException("Min < Max!");
-            }
+            if (numberOfDice <= 0)
+                throw new ArgumentException("Number of dice must be positive", nameof(numberOfDice));
 
-            _factory = new StandardDiceFactory();
+            if (minValue >= maxValue)
+                throw new ArgumentException("Min value must be less than max value");
 
-            while (Sum < sum)
-            {
-                var dice = _factory.CreateDice(min, max);
-                _diceCollection.Add(dice);
-            }
-        }
-        protected virtual Dice CreateDice(int min, int max)
-        {
-            return _factory.CreateDice(min,max);
-        }
-
-        public void PrintDice()
-        {
-            Console.WriteLine("Roll dice:");
-            for (int i = 0; i < _diceCollection.Count; i++) 
-            {
-                Console.WriteLine($"Dice {i+1}: {_diceCollection[i].Number}");
-            }
-        }
-        public override void PlayGame()
-        {
-            throw new NotImplementedException();
+            _numberOfDice = numberOfDice;
+            _minValue = minValue;
+            _maxValue = maxValue;
+            _diceCollection = new List<Dice>();
         }
 
         protected override void FactoryMethod()
         {
+            for (int i = 0; i < _numberOfDice; i++)
+            {
+                _diceCollection.Add(new Dice(_minValue, _maxValue));
+            }
+        }
 
+        public override void PlayGame(int bet)
+        {
+            FactoryMethod();
+            var playerResults = RollDice();
+            var computerResults = RollDice();
+
+            Console.WriteLine("Your dice results:");
+            DisplayDiceResults(playerResults);
+
+            Console.WriteLine("\nComputer's dice results:");
+            DisplayDiceResults(computerResults);
+
+            int playerTotal = playerResults.Sum();
+            int computerTotal = computerResults.Sum();
+
+            Console.WriteLine($"\nYour total: {playerTotal}");
+            Console.WriteLine($"Computer's total: {computerTotal}");
+
+            if (playerTotal > computerTotal)
+            {
+                Console.WriteLine("\nYou win!");
+                OnWinInvoke(bet);
+            }
+            else if (computerTotal > playerTotal)
+            {
+                Console.WriteLine("\nComputer wins!");
+                OnLoseInvoke(bet);
+            }
+            else
+            {
+                Console.WriteLine("\nIt's a draw!");
+                OnDrawInvoke(bet);
+            }
+        }
+
+        private List<int> RollDice()
+        {
+            var results = new List<int>();
+            foreach (var dice in _diceCollection)
+            {
+                results.Add(dice.Number);
+            }
+            return results;
+        }
+
+        private void DisplayDiceResults(List<int> results)
+        {
+            foreach (var result in results)
+            {
+                Console.Write($"{result} ");
+            }
+            Console.WriteLine();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using CasinoGame.Games.Dice;
+﻿using CasinoApp.Core;
 
 namespace CasinoGame
 {
@@ -6,13 +6,9 @@ namespace CasinoGame
     {
         static void Main(string[] args)
         {
-            var game = new DiceGame(sum:20,min:1,max:6);
-            Console.WriteLine("Start:");
-            game.PrintDice();
+            var casino = new Casino();
+            casino.StartGame();
 
-            Console.WriteLine();
-            game.PrintDice();
-            
         }
     }
 }

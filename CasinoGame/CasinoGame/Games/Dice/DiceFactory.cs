@@ -1,4 +1,4 @@
-﻿namespace CasinoGame.Games.Dice
+﻿/*namespace CasinoGame.Games.Dice
 {
     public abstract class DiceFactory
     {
@@ -12,4 +12,4 @@
             return new Dice(min, max);
         }
     }
-}
+}*/
