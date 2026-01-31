@@ -8,7 +8,7 @@
         public PlayerProfile(string name)
         {
             Name = name;
-            Bank = 1000; // Starting bank
+            Bank = 1000; 
         }
 
         public override string ToString()

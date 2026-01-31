@@ -9,7 +9,7 @@ namespace CasinoApp.Core
 {
     public class Casino : IGame
     {
-        private const int MAX_BANK_VALUE = 1000000;
+        private const int MAX_BANK_VALUE = 100000;
         private const string PROFILES_DIRECTORY = "Profiles";
 
         private readonly ISaveLoadService<string> _saveLoadService;
@@ -93,7 +93,6 @@ namespace CasinoApp.Core
             {
                 try
                 {
-                    // Разделяем по ':' — ожидаем [имя, остаток_со_знаком_$]
                     var parts = savedProfile.Split(':', StringSplitOptions.RemoveEmptyEntries);
 
                     if (parts.Length != 2)
@@ -103,9 +102,8 @@ namespace CasinoApp.Core
                     }
 
                     string name = parts[0].Trim();
-                    string bankPart = parts[1].Trim(); // Например, "$1000"
+                    string bankPart = parts[1].Trim(); 
 
-                    // Ищем позицию знака '$' и берём подстроку после него
                     int dollarIndex = bankPart.IndexOf('$');
                     if (dollarIndex == -1)
                     {
@@ -115,7 +113,6 @@ namespace CasinoApp.Core
 
                     string bankValueStr = bankPart.Substring(dollarIndex + 1).Trim();
 
-                    // Проверяем, что после '$' идёт число
                     if (!int.TryParse(bankValueStr, out int bank) || bank < 0)
                     {
                         Console.WriteLine($"Error: Invalid bank amount '{bankValueStr}'. Must be a non-negative integer.");
@@ -133,7 +130,9 @@ namespace CasinoApp.Core
             }
             else
             {
-                Console.WriteLine("No saved profile found.");
+                _playerProfile = new PlayerProfile(playerName) { Bank = 1000 };
+                string data = _playerProfile.Name+": $"+_playerProfile.Bank;
+                _saveLoadService.SaveData(data, $"{_playerProfile.Name}");
             }
         }
 
@@ -145,12 +144,10 @@ namespace CasinoApp.Core
             int bet = GetValidBet();
             if (bet == 0) return;
 
-            // Clear previous event subscriptions
             game.OnWin -= OnGameWin;
             game.OnLose -= OnGameLose;
             game.OnDraw -= OnGameDraw;
 
-            // Subscribe to events
             game.OnWin += OnGameWin;
             game.OnLose += OnGameLose;
             game.OnDraw += OnGameDraw;
@@ -207,7 +204,6 @@ namespace CasinoApp.Core
         private void OnGameDraw(int amount)
         {
             Console.WriteLine($"\nIt's a draw! Your bet of ${amount} is returned.");
-            // Bank remains unchanged for a draw
         }
 
         private void CheckBankLimits()

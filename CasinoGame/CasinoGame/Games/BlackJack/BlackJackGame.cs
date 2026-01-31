@@ -59,6 +59,7 @@ namespace CasinoApp.Games.Blackjack
 
         public override void PlayGame(int bet)
         {
+            FactoryMethod();
             if (_deck.Count < 4)
             {
                 Console.WriteLine("Not enough cards in deck!");
