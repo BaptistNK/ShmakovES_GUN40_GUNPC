@@ -7,7 +7,7 @@ namespace CasinoGame.Games
         public event Action<int> OnLose;
         public event Action<int> OnDraw;
 
-        protected CasinoGameBase(){ }
+        protected CasinoGameBase() { }
 
         protected abstract void FactoryMethod();
         public abstract void PlayGame(int bet);
